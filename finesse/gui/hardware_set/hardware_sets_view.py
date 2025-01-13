@@ -2,14 +2,12 @@
 
 from collections.abc import Mapping, Set
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Any, cast
 
 from frozendict import frozendict
 from pubsub import pub
 from PySide6.QtWidgets import (
     QDialog,
-    QFileDialog,
     QGroupBox,
     QHBoxLayout,
     QPushButton,
@@ -112,9 +110,6 @@ class HardwareSetsControl(QGroupBox):
         )
         self._disconnect_btn.pressed.connect(self._on_disconnect_btn_pressed)
 
-        import_hw_set_btn = QPushButton("Import config")
-        import_hw_set_btn.pressed.connect(self._import_hardware_set)
-
         self._remove_hw_set_btn = QPushButton("Remove")
         self._remove_hw_set_btn.pressed.connect(self._remove_current_hardware_set)
 
@@ -127,7 +122,6 @@ class HardwareSetsControl(QGroupBox):
         row1.addWidget(self._connect_btn)
         row1.addWidget(self._disconnect_btn)
         row2 = QHBoxLayout()
-        row2.addWidget(import_hw_set_btn)
         row2.addWidget(self._remove_hw_set_btn)
         row2.addWidget(manage_devices_btn)
 
@@ -147,25 +141,6 @@ class HardwareSetsControl(QGroupBox):
             for props in self._active_devices.values()
             if props.state == ConnectionStatus.CONNECTED
         )
-
-    def _import_hardware_set(self) -> None:
-        """Import a hardware set from a file."""
-        file_path, _ = QFileDialog.getOpenFileName(
-            self, "Import hardware set config file", filter="*.yaml"
-        )
-        if not file_path:
-            return
-
-        try:
-            hw_set = HardwareSet.load(Path(file_path))
-        except Exception:
-            show_error_message(
-                self,
-                "Could not load hardware set config file. Is it in the correct format?",
-                "Could not load config file",
-            )
-        else:
-            pub.sendMessage("hardware_set.add", hw_set=hw_set)
 
     def _remove_current_hardware_set(self) -> None:
         """Remove the currently selected hardware set."""
