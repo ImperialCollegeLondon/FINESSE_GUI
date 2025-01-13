@@ -22,6 +22,7 @@ from finesse.config import (
 from finesse.gui.data_file_view import DataFileControl
 from finesse.gui.docs_view import DocsViewer
 from finesse.gui.hardware_set.hardware_sets_view import HardwareSetsControl
+from finesse.gui.hardware_set.menu import HardwareSetsMenu
 from finesse.gui.logs_view import LogLocationOpen, LogOpen
 from finesse.gui.measure_script.script_view import ScriptControl
 from finesse.gui.sensors_panel import SensorsPanel
@@ -42,6 +43,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(f"{APP_NAME} v{APP_VERSION}")
 
         set_uncaught_exception_handler(self)
+
+        hw_sets_menu = HardwareSetsMenu()
+        self.menuBar().addMenu(hw_sets_menu)
 
         open_log = LogOpen(self)
         open_log_location = LogLocationOpen(self)
