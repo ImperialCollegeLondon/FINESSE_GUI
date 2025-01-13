@@ -9,6 +9,8 @@ from PySide6.QtWidgets import QFileDialog, QMenu
 from finesse.gui.error_message import show_error_message
 from finesse.gui.hardware_set.hardware_set import HardwareSet
 
+from finesse.gui.hardware_set.hardware_set import get_hardware_sets
+
 
 class HardwareSetsMenu(QMenu):
     """A menu for performing operations on hardware sets."""
@@ -20,6 +22,10 @@ class HardwareSetsMenu(QMenu):
         import_action = QAction("Import from file", self)
         import_action.triggered.connect(self._import_hardware_set)
         self.addAction(import_action)
+
+        self._remove_menu = QMenu("Remove hardware set")
+        self._remove_menu.aboutToShow.connect(self._update_remove_menu)
+        self.addMenu(self._remove_menu)
 
     def _import_hardware_set(self) -> None:
         """Import a hardware set from a file."""
@@ -39,3 +45,10 @@ class HardwareSetsMenu(QMenu):
             )
         else:
             pub.sendMessage("hardware_set.add", hw_set=hw_set)
+
+    def _update_remove_menu(self) -> None:
+        self._remove_menu.clear()
+
+        for hw_set in get_hardware_sets():
+            action = QAction(str(hw_set), self)
+            self._remove_menu.addAction(action)
