@@ -2298,13 +2298,13 @@ types-html5lib = "*"
 
 [[package]]
 name = "types-decorator"
-version = "5.1.8.20240310"
+version = "5.1.8.20250215"
 description = "Typing stubs for decorator"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "types-decorator-5.1.8.20240310.tar.gz", hash = "sha256:52e316b03783886a8a2abdc228f7071680ba65894545cd2085ebe3cf88684a0e"},
-    {file = "types_decorator-5.1.8.20240310-py3-none-any.whl", hash = "sha256:3af75dc38f5baf65b9b53ea6661ce2056c5ca7d70d620d0b1f620285c1242757"},
+    {file = "types_decorator-5.1.8.20250215-py3-none-any.whl", hash = "sha256:0289b854559c12f92e8166f9880a6194eb475256d93a6d6b611dc1a9ddcc5867"},
+    {file = "types_decorator-5.1.8.20250215.tar.gz", hash = "sha256:735d96deb5007544e27fa62ed27c80951f83a2c93db67cc07998152e0f839b8f"},
 ]
 
 [[package]]
@@ -2422,4 +2422,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.13,<3.14"
-content-hash = "7a7fdc031d8f35e1e120dc0167f118370032c0ca002b7ec1169bd110cbc622b5"
+content-hash = "b45f835fbd55ecff3f32068492655a79e367cb049ffb54aa2dea6a52ea17f037"
